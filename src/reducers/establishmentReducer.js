@@ -13,7 +13,8 @@ establishments.map((establishment) => {
         isDisliked: false,
         likeCounter: 0,
         dislikeCounter: 0,
-        favori: false
+        favori: false,
+        visible: true
     });
     return establishment;
 });
@@ -57,6 +58,12 @@ const establishment = (state = {}, action) => {
             favori: !state.favori
         };
 
+    case types.FILTER:
+        return {
+            ...state,
+            visible : state.name.toUpperCase().indexOf(action.data.text.toUpperCase()) >= 0
+        };
+
     default:
         return state;
     }
@@ -79,6 +86,10 @@ const establishmentsReducer = (state = initialState, action) => {
         );
 
     case types.FAVORI:
+        return state.map(establishmentState =>
+            establishment(establishmentState, action)
+        );
+    case types.FILTER:
         return state.map(establishmentState =>
             establishment(establishmentState, action)
         );

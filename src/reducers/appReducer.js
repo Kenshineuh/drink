@@ -2,7 +2,8 @@ import * as types from "../actions/actionsTypes";
 
 const initialState = {
     dataFromAPI: "",
-    pseudo: "Inconnu"
+    pseudo: "Inconnu",
+    textFilter  : ""
 };
 
 const appReducer = (state = initialState, action) => {
@@ -16,6 +17,11 @@ const appReducer = (state = initialState, action) => {
         return {
             ...state,
             pseudo: action.data.pseudo
+        };
+    case types.FILTER:
+        return {
+            ...state,
+            textFilter: action.data.text
         };
     default:
         return state;
